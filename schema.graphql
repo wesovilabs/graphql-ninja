@@ -1,0 +1,99 @@
+
+enum ActivityType {
+    SushiTalk
+    RamenTalk
+    DojoKata
+    DojoRandori
+    DojoKake
+}
+
+interface Speaker {
+  fullname: String!
+  email: Email
+}
+
+scalar Email
+scalar Phone
+
+type Employee implements Speaker{
+  fullname: String!
+  email: Email
+  team: String
+}
+
+type ExternalSpeaker implements Speaker {
+  fullname: String!
+  email: Email
+  company: String!
+  fee(currency:Currency=Euro):Float
+}
+
+enum Currency {
+  Euro
+  Dollar
+}
+
+type Event {
+  id: ID!
+  speaker: Speaker!
+  activity: Activity!
+  votes: [Vote!]
+}
+
+type Activity {
+  name: String!
+  type: ActivityType!
+}
+
+type Vote {
+  name: String
+  score: Int!
+  comment: String
+}
+type Query {
+  getEvent(id:ID!): Event
+  listEvents:[Event!]
+}
+
+input EventRequest {
+  speaker: SpeakerRequest!
+  activity: ActivityRequest!
+}
+input SpeakerRequest {
+  employee: EmployeeRequest
+  externalSpeaker: ExternalSpeakerRequest
+}
+
+input EmployeeRequest{
+  fullname: String!
+  email: Email
+  team: String!
+}
+
+input ExternalSpeakerRequest{
+  fullname: String!
+  email: Email
+  company: String!
+  fee:Float
+}
+
+input ActivityRequest {
+  name: String!
+  type: ActivityType!
+}
+
+input VoteRequest {
+  eventId:ID!
+  name: String!
+  score: Int!
+  comment: String
+}
+
+type Mutation {
+  createEvent(event:EventRequest!):Event
+  vote(request:VoteRequest):Vote!
+}
+
+type Subscription {
+  checkNewVotes(eventId:ID!):Vote
+}

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo:3.4.11
+    container_name: workshop-mongodb
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    command: mongod
+
+  code:
+    image: wesovilabs/graphql-ninja:local
+    ports:
+      - 7000:7000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./:/usr/src/app
+      - ./config/development.json:/opt/config/development.json
+    environment:
+      APP_CONFIG_DIR: /opt/config
+    command: npm run dev
+
+
+volumes:
+  mongodb:
+  mongodb_config:

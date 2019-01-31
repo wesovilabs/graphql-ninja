@@ -9,7 +9,7 @@ const connection = require('./db/connection');
 const config = require('./config.js');
 const {pubsub} = require('./pubsub');
 const {MESSAGE_EVENTS} = require('./events');
-
+const bodyParser = require('body-parser');
 const { withFilter } = require('graphql-subscriptions');
 const { createServer } =require('http') ;
 require('dotenv').config();
@@ -55,7 +55,7 @@ const schema = makeExecutableSchema({
 
 connection.connect();
 const app = new express();
-
+app.use(bodyParser.json());
 const server = new ApolloServer({
   schema,
 });

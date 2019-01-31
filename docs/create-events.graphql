@@ -1,0 +1,34 @@
+mutation {
+   graphQLEvent: createEvent(event: {
+     speaker:{
+       employee:{
+         fullname:"Iván Corrales Solera",
+         email:"ivan.corrales@bbva.com",
+         team:"Kernel ECS",
+       },
+     },
+     activity:{
+       name:"Dive into GraphQL",
+       type: RamenTalk,
+     }
+   }){
+     id
+   }
+   linuxEvent: createEvent(event: {
+     speaker:{
+       externalSpeaker: {
+         fullname:"Linus Torvalds",
+         email:"limus@linux.com",
+         company:"Linux",
+         fee:2500,
+       }
+     },
+     activity:{
+       name:"Linux introduction",
+       type: ,RamenTalk
+     }
+   }){
+     id
+   }
+ }
+ 

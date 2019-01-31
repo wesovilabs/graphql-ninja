@@ -1,0 +1,36 @@
+{
+  myEvent:getEvent(id:"5c526fd926eb04001f400e3d"){
+    activity {
+      name
+    }
+  }
+
+  speakers: listEvents {
+    speaker {
+      fullname
+      email
+    }
+  }
+
+  events: listEvents{
+    id
+    activity {
+      name
+      type
+    }
+    votes {
+      name
+      score
+    }
+    speaker{
+      fullname
+      email
+      ... on Employee {
+        team
+      }
+      ... on ExternalSpeaker {
+        fee(currency:Dollar)
+      }
+    }
+  }
+}

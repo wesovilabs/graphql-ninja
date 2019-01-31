@@ -1,0 +1,7 @@
+subscription {
+  listenVotes(eventId:"5c514ae50eaf8e001e734a91") {
+      name
+    	score
+      comment
+  }
+}

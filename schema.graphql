@@ -12,8 +12,8 @@ interface Speaker {
   email: Email
 }
 
+""" Custom scalar type used for emails"""
 scalar Email
-scalar Phone
 
 type Employee implements Speaker{
   fullname: String!
@@ -32,9 +32,11 @@ enum Currency {
   Euro
   Dollar
 }
-
+""" Event structure """
 type Event {
+  "Event identifier"
   id: ID!
+  "Speaker"
   speaker: Speaker!
   activity: Activity!
   votes: [Vote!]
@@ -51,7 +53,8 @@ type Vote {
   comment: String
 }
 type Query {
-  getEvent(id:ID!): Event
+  """ it returns an event for the given id"""
+  getEvent("event identifier" id:ID!): Event
   listEvents:[Event!]
 }
 
@@ -90,6 +93,7 @@ input VoteRequest {
 }
 
 type Mutation {
+  """operation for creating a new event"""
   createEvent(event:EventRequest!):Event
   vote(request:VoteRequest):Vote!
 }
